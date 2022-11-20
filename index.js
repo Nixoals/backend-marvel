@@ -32,13 +32,10 @@ app.use(userFavorites);
 const commentsRoute = require('./routes/comments');
 app.use(commentsRoute);
 
-// const marvelApiRoutes = require('./routes/marvelApi');
-// app.use(marvelApiRoutes);
-
 app.all('*', (req, res) => {
 	res.status(404).json({ message: 'this route does not exist' });
 });
 
-app.listen(process.env.PORT_LOCAL, () => {
+app.listen(process.env.PORT, () => {
 	console.log(`server started on port : ${process.env.PORT_LOCAL}`);
 });

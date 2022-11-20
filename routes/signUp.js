@@ -42,6 +42,7 @@ router.post('/user/signup', fileUpload(), async (req, res) => {
 
 		let secure_url;
 		const picture = req.files?.avatar;
+		console.log(picture);
 
 		if (!picture) {
 			secure_url = 'https://res.cloudinary.com/dbrbme99g/image/upload/v1668700615/marvel/avatar/defaultAvatar_zdffnk.png';
@@ -58,16 +59,18 @@ router.post('/user/signup', fileUpload(), async (req, res) => {
 			salt: data.salt,
 			hash: data.hash,
 			token: data.token,
-			favorites: { comics: [''], characters: [''] },
+			favorites: { comics: [], characters: [] },
 		});
 
 		await newUser.save();
 
+		console.log(newUser._id, data.token, newUser.favorites);
 		res.status(200).json({
+			newUser,
 			_id: newUser._id,
 			account: { username: username, avatar: secure_url },
 			token: data.token,
-			favourites: newUser.favorites,
+			favorites: newUser.favorites,
 		});
 	} catch (error) {
 		res.status(400).json({

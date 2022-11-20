@@ -3,10 +3,8 @@ const axios = require('axios');
 
 const router = express.Router();
 const ApiKey = process.env.REACTEUR_API_KEY;
-const ApiKeyMarvel = process.env.MARVEL_API_KEY;
 
 const baseUrl = 'https://lereacteur-marvel-api.herokuapp.com';
-const baseUrlMarvel = 'https://gateway.marvel.com:443/v1/public';
 
 //get all Comics
 router.get('/comics', async (req, res) => {
