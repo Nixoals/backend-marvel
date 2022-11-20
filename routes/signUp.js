@@ -58,14 +58,16 @@ router.post('/user/signup', fileUpload(), async (req, res) => {
 			salt: data.salt,
 			hash: data.hash,
 			token: data.token,
-			favorites: { comics: [], characters: [] },
+			favorites: { comics: [''], characters: [''] },
 		});
 
 		await newUser.save();
+
 		res.status(200).json({
 			_id: newUser._id,
 			account: { username: username, avatar: secure_url },
 			token: data.token,
+			favourites: newUser.favorites,
 		});
 	} catch (error) {
 		res.status(400).json({

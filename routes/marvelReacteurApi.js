@@ -13,7 +13,7 @@ router.get('/comics', async (req, res) => {
 	try {
 		const { limit, skip, title } = req.query;
 		let limitValue, skipValue, titleValue;
-
+		console.log(title);
 		if (limit) {
 			limitValue = `&limit=${limit}`;
 		} else {
@@ -31,7 +31,7 @@ router.get('/comics', async (req, res) => {
 		}
 
 		const url = `${baseUrl}/comics?apiKey=${ApiKey}${limitValue}${skipValue}${titleValue}`;
-
+		console.log(url);
 		const response = await axios.get(url);
 
 		res.status(200).json(response.data);

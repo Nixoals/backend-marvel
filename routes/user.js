@@ -7,21 +7,24 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-router.post('/user/comics/', isAuthenticated, fileUpload(), async (req, res) => {
+router.post('/user/comics', isAuthenticated, fileUpload(), async (req, res) => {
 	try {
 		const comicsID = req.body.id;
 		const user = req.user;
 
 		const comicsList = user.favorites.comics;
 		const charactersList = user.favorites.characters;
+		console.log(comicsList);
 
 		if (!comicsList.find((comics) => comics === comicsID)) {
 			comicsList.push(comicsID);
-			findUser.favorites = { comics: comicsList, characters: charactersList };
-			await findUser.save();
+			console.log(comicsList);
+
+			user.favorites = { comics: comicsList, characters: charactersList };
+			await user.save();
 			return res.status(200).json(user.favorites);
 		} else {
-			return res.status(400).json('already in db');
+			return res.status(200).json('already in db');
 		}
 	} catch (error) {
 		res.status(400).json({ message: error.message });
@@ -36,7 +39,7 @@ router.post('/user/characters', isAuthenticated, fileUpload(), async (req, res) 
 		const comicsList = user.favorites.comics;
 		const charactersList = user.favorites.characters;
 
-		if (charactersList.length > 0 && !charactersList.find((character) => character === characterId)) {
+		if (charactersList.length === 0 || !charactersList.find((character) => character === characterId)) {
 			charactersList.push(characterId);
 			user.favorites = { comics: comicsList, characters: charactersList };
 			await user.save();

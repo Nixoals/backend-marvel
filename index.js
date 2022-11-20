@@ -29,6 +29,9 @@ app.use(loginRoute);
 const userFavorites = require('./routes/user');
 app.use(userFavorites);
 
+const commentsRoute = require('./routes/comments');
+app.use(commentsRoute);
+
 // const marvelApiRoutes = require('./routes/marvelApi');
 // app.use(marvelApiRoutes);
 
