@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cloudinary = require('cloudinary').v2;
 
 require('dotenv').config();
-mongoose.connect(process.env.MONGODB_URI_LOCAL);
+mongoose.connect(process.env.MONGODB_URI);
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_COULD_NAME,
